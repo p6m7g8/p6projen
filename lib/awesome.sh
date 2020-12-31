@@ -1,7 +1,10 @@
 ######################################################################
 #<
 #
-# Function: p6_projen_awesome_projects_collect()
+# Function: words org_repos = p6_projen_awesome_projects_collect()
+#
+#  Returns:
+#	words - org_repos
 #
 #>
 ######################################################################

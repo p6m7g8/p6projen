@@ -86,6 +86,18 @@ p6_projen_util_submit() {
     p6_github_gh_pr_submit "chore(deps): bumps projen from $before to $after"
 }
 
+######################################################################
+#<
+#
+# Function: p6_projen_util_foreach(projects, code, [threads=1])
+#
+#  Args:
+#	projects -
+#	code -
+#	OPTIONAL threads - [1]
+#
+#>
+######################################################################
 p6_projen_util_foreach() {
     local projects="$1"
     local code="$2"
@@ -101,7 +113,7 @@ p6_projen_util_foreach() {
             dir="$P6_DFZ_SRC_DIR/$project"
 
             local prefix
-            prefix=$(_pad "$project" 40)
+            prefix=$(p6__pad "$project" 40)
 
             case $code in
             *versions*) echo -n "$prefix" ;;
@@ -123,7 +135,18 @@ p6_projen_util_foreach() {
     fi
 }
 
-_pad() {
+######################################################################
+#<
+#
+# Function: p6__pad(str, length)
+#
+#  Args:
+#	str -
+#	length -
+#
+#>
+######################################################################
+p6__pad() {
     local str="$1"
     local length="$2"
 

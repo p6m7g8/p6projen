@@ -47,12 +47,13 @@
 
 #### awesome.sh:
 
-- p6_projen_awesome_projects_collect()
+- words org_repos = p6_projen_awesome_projects_collect()
 
 #### util.sh:
 
 - p6_projen_util_build()
 - p6_projen_util_diff()
+- p6_projen_util_foreach(projects, code, [threads=1])
 - p6_projen_util_submit()
 - p6_projen_util_synthesize()
 - p6_projen_util_upgrade()
