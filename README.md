@@ -38,18 +38,21 @@
 
 - [Change Log](CHANGELOG.md)
 
-### Usage
+## Usage
 
-#### init.zsh:
+### p6projen:
+
+#### p6projen/init.zsh:
 
 - p6df::modules::p6projen::deps()
 - p6df::modules::p6projen::init()
 
-#### awesome.sh:
+### ../p6projen/lib:
+
+#### ../p6projen/lib/awesome.sh:
 
 - words org_repos = p6_projen_awesome_projects_collect()
-
-#### util.sh:
+#### ../p6projen/lib/util.sh:
 
 - p6_projen_util_build()
 - p6_projen_util_diff()
