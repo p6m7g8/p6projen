@@ -47,11 +47,13 @@
 - p6df::modules::p6projen::deps()
 - p6df::modules::p6projen::init()
 
+
 ### ../p6projen/lib:
 
 #### ../p6projen/lib/awesome.sh:
 
 - words org_repos = p6_projen_awesome_projects_collect()
+
 #### ../p6projen/lib/util.sh:
 
 - p6_projen_util_build()
@@ -63,6 +65,15 @@
 - p6_projen_util_version()
 
 
+
+## Hier
+```text
+.
+├── awesome.sh
+└── util.sh
+
+0 directories, 2 files
+```
 ## Author
 
 Philip M . Gollucci <pgollucci@p6m7g8.com>
