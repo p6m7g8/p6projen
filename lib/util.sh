@@ -5,6 +5,7 @@
 #
 # Function: p6_projen_util_version()
 #
+#  Depends:	 p6_echo p6_git p6_node
 #>
 #/ XXX: npx projen --version is the right way to do this
 #/ XXX: but it assumes its built and its SLOW
@@ -25,6 +26,7 @@ p6_projen_util_version() {
 #
 # Function: p6_projen_util_diff()
 #
+#  Depends:	 p6_git
 #>
 ######################################################################
 p6_projen_util_diff() {
@@ -49,6 +51,7 @@ p6_projen_util_synthesize() {
 #
 # Function: p6_projen_util_build()
 #
+#  Depends:	 p6_git
 #>
 ######################################################################
 p6_projen_util_build() {
@@ -61,6 +64,7 @@ p6_projen_util_build() {
 #
 # Function: p6_projen_util_upgrade()
 #
+#  Depends:	 p6_git
 #>
 ######################################################################
 p6_projen_util_upgrade() {
@@ -73,6 +77,7 @@ p6_projen_util_upgrade() {
 #
 # Function: p6_projen_util_submit()
 #
+#  Depends:	 p6_git p6_github p6_run
 #>
 ######################################################################
 p6_projen_util_submit() {
@@ -96,6 +101,8 @@ p6_projen_util_submit() {
 #	code -
 #	OPTIONAL threads - [1]
 #
+#  Depends:	 p6_run p6_string
+#  Environment:	 P6_DFZ_SRC_DIR
 #>
 ######################################################################
 p6_projen_util_foreach() {
@@ -144,6 +151,7 @@ p6_projen_util_foreach() {
 #	str -
 #	length -
 #
+#  Environment:	 MP6
 #>
 ######################################################################
 p6__pad() {

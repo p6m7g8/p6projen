@@ -3,6 +3,7 @@
 #
 # Function: p6df::modules::p6projen::deps()
 #
+#  Depends:	 p6_bootstrap
 #>
 ######################################################################
 p6df::modules::p6projen::deps() {
@@ -16,10 +17,15 @@ p6df::modules::p6projen::deps() {
 #
 # Function: p6df::modules::p6projen::init()
 #
+#  Depends:	 p6_bootstrap
+#  Environment:	 P6_DFZ_SRC_P6M7G8_DIR
 #>
 ######################################################################
 p6df::modules::p6projen::init() {
 
-  local dir="$P6_DFZ_SRC_DIR/p6m7g8/p6projen"
+  local dir="$P6_DFZ_SRC_P6M7G8_DIR/p6m7g8/p6projen"
+
   p6_bootstrap "$dir"
+
+  p6_return_void
 }
