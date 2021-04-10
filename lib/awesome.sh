@@ -8,14 +8,14 @@
 #  Returns:
 #	words - projects
 #
-#  Depends:	 p6_echo
+#  Depends:	 p6_dir
 #  Environment:	 P6_DFZ_SRC_P6M7G8_DIR
 #>
 ######################################################################
 p6_projen_awesome_collect() {
 
     local projects
-    projects=$(p6_file_display "$P6_DFZ_SRC_P6M7G8_DIR/p6projen/conf/projects")
+    projects=$(p6_file_display "$P6_DFZ_SRC_P6M7G8_DIR/p6projen/conf/projects" | sort -r)
 
     p6_return_words "$projects"
 }
@@ -28,7 +28,7 @@ p6_projen_awesome_collect() {
 #  Args:
 #	OPTIONAL parallel - [8]
 #
-#  Depends:	 p6_dir p6_run
+#  Depends:	 p6_dir p6_echo p6_run
 #  Environment:	 P6_DFZ_DATA_DIR
 #>
 ######################################################################
@@ -61,12 +61,18 @@ p6_projen_awesome_foreach() {
     local projects=$(p6_projen_awesome_collect)
     local dir="$P6_DFZ_DATA_DIR/src/github.com/projens"
 
-    for project in $(echo "$projects"); do
-        (
-            cd "$dir/$project" || exit
-            p6_run_code "$code"
-        )
-    done
+    p6_run_parallel "0" "50" "$projects" "do_it" "$dir" "$code" >/dev/null
+}
+
+do_it() {
+    local dir="$1"
+    local code="$2"
+    local project="$3"
+
+    (
+        cd "$dir/$project" || exit 1
+        p6_run_code "$code" "$project"
+    ) >&2
 }
 
 ######################################################################
@@ -93,6 +99,7 @@ p6_projen_awesome_version() {
 #
 # Function: p6_projen_awesome_cdk_version()
 #
+#  Depends:	 p6_echo
 #>
 ######################################################################
 p6_projen_awesome_cdk_version() {
@@ -124,6 +131,7 @@ p6_projen_awesome_pkg() {
 #
 # Function: p6_projen_awesome_type()
 #
+#  Depends:	 p6_git
 #>
 ######################################################################
 p6_projen_awesome_type() {
@@ -136,12 +144,84 @@ p6_projen_awesome_type() {
 #
 # Function: p6_projen_awesome_branch()
 #
-#  Depends:	 p6_git
 #>
 ######################################################################
 p6_projen_awesome_branch() {
 
     grep defaultReleaseBranch: .projenrc.js | sed -e 's/.*://'
+}
+
+######################################################################
+#<
+#
+# Function: p6_projen_awesome_module()
+#
+#>
+######################################################################
+p6_projen_awesome_module() {
+
+    grep -o "@aws-cdk/aws-[^'\",@]*" .projenrc.js
+}
+
+######################################################################
+#<
+#
+# Function: p6_projen_awesome_update()
+#
+#  Depends:	 p6_h1
+#>
+######################################################################
+p6_projen_awesome_update() {
+
+    p6_h1 "$(pwd)"
+
+    p6_git_p6_reset_head_hard
+    p6_git_p6_checkout_default
+    yarn install && \
+	npx projen projen:upgrade && \
+	npx projen build && {
+	  p6_git_p6_status
+          p6_git_p6_diff
+          p6_git_p6_add_all
+          p6_projen_awesome_submit
+        }
+
+    p6_return_void
+}
+
+######################################################################
+#<
+#
+# Function: p6_projen_awesome_pr()
+#
+#>
+######################################################################
+p6_projen_awesome_pr() {
+
+    gh pr list -s all --limit 600 | wc -l
+}
+
+######################################################################
+#<
+#
+# Function: p6_projen_awesome_description(project)
+#
+#  Args:
+#	project -
+#
+#  Depends:	 p6_git
+#>
+######################################################################
+p6_projen_awesome_description() {
+    local project="$1"
+
+    {
+        echo "- [$project](https://github.com/$project/main/.projectrc.js) - "
+        echo "%%%%"
+        grep description .projenrc.js | head -1 | sed -e 's/.*description://' | grep -v undefined
+        echo "%%%%"
+        echo "."
+    } | xargs
 }
 
 ######################################################################
