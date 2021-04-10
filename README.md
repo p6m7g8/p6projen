@@ -52,27 +52,28 @@
 
 #### ../p6projen/lib/awesome.sh:
 
-- words org_repos = p6_projen_awesome_projects_collect()
-
-#### ../p6projen/lib/util.sh:
-
-- p6_projen_util_build()
-- p6_projen_util_diff()
-- p6_projen_util_foreach(projects, code, [threads=1])
-- p6_projen_util_submit()
-- p6_projen_util_synthesize()
-- p6_projen_util_upgrade()
-- p6_projen_util_version()
+- p6_projen_awesome_branch()
+- p6_projen_awesome_build()
+- p6_projen_awesome_cdk_version()
+- p6_projen_awesome_clones([parallel=8])
+- p6_projen_awesome_diff()
+- p6_projen_awesome_foreach(code)
+- p6_projen_awesome_pkg()
+- p6_projen_awesome_submit()
+- p6_projen_awesome_synthesize()
+- p6_projen_awesome_type()
+- p6_projen_awesome_upgrade()
+- p6_projen_awesome_version()
+- words projects = p6_projen_awesome_collect()
 
 
 
 ## Hier
 ```text
 .
-├── awesome.sh
-└── util.sh
+└── awesome.sh
 
-0 directories, 2 files
+0 directories, 1 file
 ```
 ## Author
 
